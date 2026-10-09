@@ -1,0 +1,49 @@
+name: MacCare
+options:
+  bundleIdPrefix: com.hlum
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: "-"
+    ENABLE_HARDENED_RUNTIME: NO
+    ENABLE_APP_SANDBOX: NO
+    GENERATE_INFOPLIST_FILE: YES
+  configs:
+    Release:
+      ARCHS: "arm64 x86_64"
+      ONLY_ACTIVE_ARCH: NO
+targets:
+  MacCare:
+    type: application
+    platform: macOS
+    sources: [MacCare]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.hlum.maccare
+        INFOPLIST_KEY_CFBundleDisplayName: MacCare
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        INFOPLIST_KEY_NSHumanReadableCopyright: "Personal use"
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+  MacCareTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources: [MacCareTests]
+    dependencies:
+      - target: MacCare
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.hlum.maccare.tests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  MacCare:
+    build:
+      targets:
+        MacCare: all
+    test:
+      targets: [MacCareTests]
